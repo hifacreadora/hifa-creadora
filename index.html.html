@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hifa Creadora — Tiendita de alquimia entre cultivos y arte</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cacao:#5c1a0a;--tierra:#c8441a;--arcilla:#d9764a;
+  --musgo:#4a6e3a;--brotes:#8ab840;--luz:#f5f0e8;
+  --crema:#ede7d9;--texto:#3a1a08;--muted:#8a7a68;--borde:#ddd0be;
+  --wa:#25D366;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--luz);color:var(--texto);max-width:1100px;margin:0 auto;}
+a{text-decoration:none;color:inherit;}
+
+.ticker{background:var(--cacao);padding:9px 0;overflow:hidden;white-space:nowrap;}
+.ticker span{display:inline-block;animation:tick 32s linear infinite;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--arcilla);}
+@keyframes tick{from{transform:translateX(100%);}to{transform:translateX(-100%);}}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 3%; /* Usa porcentaje para que el aire lateral se adapte a cualquier pantalla */
+  background: var(--luz);
+  border-bottom: .5px solid var(--borde);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  /* Agrega estas líneas para forzar el 100% del ancho de pantalla */
+  width: 100%;
+  box-sizing: border-box;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Aumentado el espacio entre el círculo y el texto (de 12px a 16px) */
+}
+
+.logo-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--cacao);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible; /* Permite que las puntas irregulares salgan del círculo */
+}
+
+.svg-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Conserva la forma física del SVG */
+  transform: scale(1.15); /* Ajustá este valor (1.1 a 1.3) según qué tan grande querés que se vea */
+  display: block;
+}
+
+.logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; /* Aumentado el título "Hifa Creadora" (de 20px a 26px) */
+  color: var(--cacao);
+}
+
+.logo-tag {
+  font-size: 11px; /* Aumentada la bajada de texto (de 9px a 11px) */
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px; /* Aumentada la separación entre enlaces (de 26px a 32px) */
+}
+
+.nav-links a {
+  font-size: 13px; /* Aumentada la letra de los enlaces (de 11px a 13px) */
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color .2s;
+}
+
+.nav-links a:hover {
+  color: var(--tierra);
+}
+
+.nav-cart-btn {
+  position: relative;
+  width: 40px; /* Aumentado el tamaño del botón del carrito (de 40px a 50px) */
+  height: 40px;
+  border-radius: 50%;
+  background: var(--tierra);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px; /* Aumentado el icono de la bolsa/carrito (de 16px a 20px) */
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 20px; /* Ligero ajuste al contador del carrito (de 18px a 20px) */
+  height: 20px;
+  border-radius: 50%;
+  background: var(--musgo);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+/* HERO */
+.hero-wrap{position:relative;margin:20px 22px 0;border-radius:24px;overflow:hidden;height:560px;cursor:none;}
+.hero-photo{position:absolute;inset:0;background-image:url('img/hero.webp');background-size:cover;background-position:center;background-repeat:no-repeat;}
+canvas#mc{position:absolute;top:0;left:0;width:100%;height:100%;display:block;z-index:1;}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(40,10,4,.97) 0%,rgba(40,10,4,.5) 38%,rgba(20,5,2,.08) 100%);}
+.hero-content{position:absolute;bottom:0;left:0;right:0;padding:48px 56px;z-index:2;pointer-events:none;}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--brotes);background:rgba(138,184,64,.15);border:.5px solid rgba(138,184,64,.35);border-radius:30px;padding:5px 14px;margin-bottom:18px;}
+.htdot{width:5px;height:5px;border-radius:50%;background:var(--brotes);}
+.hero-title{font-family:'Playfair Display',serif;font-size:60px;font-weight:400;line-height:1.04;color:var(--luz);margin-bottom:10px;}
+.hero-title em{font-style:italic;color:var(--arcilla);}
+.hero-tagline{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:rgba(210,185,155,.6);margin-bottom:18px;}
+.hero-sub{font-size:14px;font-weight:300;color:rgba(230,215,195,.75);line-height:1.7;margin-bottom:28px;max-width:540px;}
+.hero-actions{display:flex;gap:12px;pointer-events:all;flex-wrap:wrap;}
+.btn-p{padding:13px 32px;background:var(--tierra);color:var(--luz);font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.13em;text-transform:uppercase;border:none;border-radius:30px;cursor:pointer;transition:background .2s;}
+.btn-p:hover{background:var(--arcilla);}
+.btn-g{padding:13px 24px;background:transparent;color:rgba(230,215,195,.85);font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.11em;text-transform:uppercase;border:.5px solid rgba(230,215,195,.35);border-radius:30px;cursor:pointer;}
+/* TRUST */
+.trust{display:flex;margin:18px 22px;background:var(--cacao);border-radius:16px;overflow:hidden;}
+.ti{flex:1;padding:17px 10px;text-align:center;border-right:.5px solid rgba(255,255,255,.07);}
+.ti:last-child{border-right:none;}
+.ti-icon{font-size:15px;color:var(--arcilla);margin-bottom:4px;}
+.ti-label{font-size:10px;letter-spacing:.06em;color:rgba(215,195,170,.65);line-height:1.45;}
+
+.sh{padding:42px 44px 20px;display:flex;align-items:baseline;justify-content:space-between;}
+.st{font-family:'Playfair Display',serif;font-size:32px;color:var(--cacao);}
+.st em{font-style:italic;color:var(--tierra);}
+.sl-link{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--musgo);cursor:pointer;transition:color .2s;}
+.sl-link:hover{color:var(--tierra);}
+
+/* CATEGORÍAS */
+.cats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;padding:0 22px 30px;}
+.cat{position:relative;border-radius:20px;overflow:hidden;height:380px;cursor:pointer;}
+.cat-img{position:absolute;inset:0;background-size:cover;background-position:center top;transition:transform .45s;}
+.cat:hover .cat-img{transform:scale(1.04);}
+.cat-ov{position:absolute;inset:0;}
+.cat.extractos .cat-img {background-image: url('img/extractos-adaptogenos.webp');}
+.cat.extractos .cat-ov{background:linear-gradient(to top,rgba(92,26,10,.96) 0%,rgba(92,26,10,.28) 55%,transparent 100%);}
+.cat.hongos .cat-img {background-image: url('img/cultivo7.webp');}
+.cat.hongos .cat-ov{background:linear-gradient(to top,rgba(26,46,20,.96) 0%,rgba(26,46,20,.28) 55%,transparent 100%);}
+.cat.arte .cat-img {background-image: url('img/organitas14.webp');}
+.cat.arte .cat-ov{background:linear-gradient(to top,rgba(40,20,60,.96) 0%,rgba(40,20,60,.28) 55%,transparent 100%);}
+.cat-badge{position:absolute;top:18px;left:18px;padding:4px 12px;border-radius:20px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;}
+.extractos .cat-badge{background:rgba(200,68,26,.25);color:#f5a07a;border:.5px solid rgba(200,68,26,.4);}
+.hongos    .cat-badge{background:rgba(74,110,58,.25);color:#9acc70;border:.5px solid rgba(74,110,58,.4);}
+.arte      .cat-badge{background:rgba(120,80,180,.25);color:#c8a8f0;border:.5px solid rgba(120,80,180,.4);}
+.cat-body{position:absolute;bottom:0;left:0;right:0;padding:26px;}
+.cat-glyph{font-size:28px;margin-bottom:8px;display:block;}
+.cat-name{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--luz);margin-bottom:4px;line-height:1.2;}
+.cat-sub{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(220,200,175,.6);margin-bottom:12px;}
+.cat-arrow{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(220,200,175,.8);}
+
+/* PRODUCTOS */
+.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 22px 10px;}
+.pcard{background:#fff;border:.5px solid var(--borde);border-radius:18px;overflow:hidden;transition:transform .22s,box-shadow .22s;}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(92,26,10,.13);}
+.pcard-img{height:300px;overflow:hidden;background:#f8f5f0;}
+.pcard-img img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#fff;transition:transform .45s;padding:8px;}
+.pcard:hover .pcard-img img{transform:scale(1.04);}
+.pcard-body{padding:15px 16px 18px;}
+.pcard-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--cacao);margin-bottom:2px;}
+.pcard-sci{font-size:10px;font-style:italic;color:var(--muted);margin-bottom:8px;}
+.pcard-price{font-family:'Playfair Display',serif;font-size:22px;color:var(--tierra);margin-bottom:8px;}
+.pcard-tag{display:inline-block;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--musgo);background:rgba(74,110,58,.1);border:.5px solid rgba(74,110,58,.22);border-radius:20px;padding:3px 10px;}
+.pcard-qty{display:flex;align-items:center;gap:8px;margin-top:12px;}
+.qty-btn{width:30px;height:30px;border-radius:50%;border:.5px solid var(--borde);background:var(--crema);font-size:16px;cursor:pointer;color:var(--cacao);display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0;}
+.qty-btn:hover{background:var(--tierra);color:#fff;border-color:var(--tierra);}
+.qty-num{font-family:'Playfair Display',serif;font-size:18px;color:var(--cacao);min-width:22px;text-align:center;}
+.add-cart-btn{flex:1;padding:8px 12px;background:var(--cacao);color:var(--luz);font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:20px;cursor:pointer;transition:background .2s;margin-left:4px;}
+.add-cart-btn:hover{background:var(--tierra);}
+.add-cart-btn.added{background:var(--musgo);}
+
+/* ADAPTÓGENOS */
+.adapto{margin:0 22px 30px;background:var(--cacao);border-radius:22px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;}
+.adapto-left{padding:48px 44px 48px 52px;display:flex;flex-direction:column;justify-content:center;}
+.adapto-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--brotes);margin-bottom:12px;}
+.adapto-title{font-family:'Playfair Display',serif;font-size:30px;color:var(--luz);margin-bottom:16px;line-height:1.2;}
+.adapto-title em{font-style:italic;color:var(--arcilla);}
+.adapto-text{font-size:13px;font-weight:300;color:rgba(210,195,175,.75);line-height:1.75;margin-bottom:20px;}
+.adapto-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.apill{padding:5px 12px;border:.5px solid rgba(138,184,64,.3);border-radius:20px;font-size:10px;letter-spacing:.08em;color:rgba(138,184,64,.8);}
+.adapto-right{display:grid;grid-template-columns:1fr 1fr;}
+.adapto-img{overflow:hidden;}
+.adapto-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.85);transition:filter .3s;}
+.adapto-img:hover img{filter:brightness(1);}
+.adapto-cta{background:var(--tierra);display:flex;align-items:center;justify-content:center;padding:24px;}
+.adapto-cta-text{text-align:center;font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--luz);line-height:1.7;}
+
+/* GALERÍA CULTIVO */
+.gal-wrap{padding:0 22px 30px;}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.gi{border-radius:14px;overflow:hidden;cursor:pointer;}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.gi:hover img{transform:scale(1.05);}
+.g-tall{grid-row:span 2;height:440px;}
+.g-med{height:210px;}
+
+/* CREADORA */
+.creadora-wrap{padding:0 22px 28px;}
+.creadora{background:var(--cacao);border-radius:22px;overflow:hidden;display:grid;grid-template-columns:380px 1fr;min-height:520px;}
+.creadora-foto{position:relative;overflow:hidden;}
+.creadora-foto img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+.creadora-foto-ov{position:absolute;inset:0;background:linear-gradient(to right,transparent 75%,var(--cacao) 100%);}
+.creadora-content{padding:52px 48px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.mb{position:absolute;top:-40px;right:-30px;width:140px;height:140px;border-radius:60% 40% 50% 60%/40% 60% 50% 70%;background:var(--tierra);opacity:.1;}
+.m-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--brotes);margin-bottom:14px;}
+.m-quote{font-family:'Playfair Display',serif;font-size:24px;font-style:italic;color:var(--crema);line-height:1.55;margin-bottom:20px;padding-left:18px;border-left:2px solid var(--tierra);}
+.m-bio{font-size:13px;font-weight:300;color:rgba(210,195,175,.7);line-height:1.78;margin-bottom:24px;}
+.m-link{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--arcilla);cursor:pointer;}
+
+/* ARTE */
+.arte-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:0 22px 30px;}
+.arte-card{border-radius:14px;overflow:hidden;cursor:pointer;aspect-ratio:3/4;}
+.arte-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.arte-card:hover img{transform:scale(1.07);}
+
+/* NEWSLETTER */
+.nlwrap{margin:0 22px 28px;background:var(--crema);border:.5px solid var(--borde);border-radius:22px;padding:36px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
+.nl-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--cacao);margin-bottom:6px;}
+.nl-title em{font-style:italic;color:var(--tierra);}
+.nl-sub{font-size:13px;font-weight:300;color:var(--muted);line-height:1.65;}
+.nl-form{display:flex;gap:10px;flex-shrink:0;}
+.nl-input{padding:12px 20px;background:#fff;border:.5px solid var(--borde);border-radius:30px;font-family:'DM Sans',sans-serif;font-size:12px;outline:none;width:210px;}
+.nl-btn{padding:12px 24px;background:var(--tierra);color:var(--luz);font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:none;border-radius:30px;cursor:pointer;}
+
+/* FOOTER */
+footer{background:var(--cacao);padding:48px 44px 28px;border-radius:22px 22px 0 0;margin-top:8px;}
+.ft{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:44px;margin-bottom:36px;}
+.ft-logo{font-family:'Playfair Display',serif;font-size:28px;font-style:italic;color:var(--luz);margin-bottom:6px;}
+.ft-tagline{font-family:'Playfair Display',serif;font-size:13px;font-style:italic;color:rgba(220,200,175,.5);max-width:200px;line-height:1.65;}
+.ft-head{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--arcilla);margin-bottom:16px;}
+.ft-links{display:flex;flex-direction:column;gap:10px;}
+.ft-links a{font-size:12px;color:rgba(210,190,165,.5);transition:color .2s;}
+.ft-links a:hover{color:var(--arcilla);}
+.ft-contact{display:flex;flex-direction:column;gap:10px;}
+.ft-contact a,.ft-contact span{font-size:12px;color:rgba(210,190,165,.5);}
+.ft-contact a:hover{color:var(--arcilla);}
+.ft-bottom{border-top:.5px solid rgba(255,255,255,.07);padding-top:20px;display:flex;justify-content:space-between;align-items:center;}
+.ft-copy{font-size:11px;color:rgba(210,190,165,.3);}
+.ft-ig{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--brotes);}
+
+/* CARRITO PANEL */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:400px;background:var(--luz);z-index:201;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,.2);}
+.cart-panel.open{transform:translateX(0);}
+.cart-header{padding:24px;border-bottom:.5px solid var(--borde);display:flex;align-items:center;justify-content:space-between;background:var(--cacao);}
+.cart-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--luz);}
+.cart-close{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:var(--luz);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.cart-items{flex:1;overflow-y:auto;padding:16px 20px;}
+.cart-empty{text-align:center;padding:48px 20px;font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--muted);}
+.cart-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:.5px solid var(--borde);}
+.cart-item-name{flex:1;}
+.cart-item-name strong{font-size:14px;color:var(--cacao);display:block;margin-bottom:2px;}
+.cart-item-name span{font-size:12px;color:var(--muted);}
+.cart-item-qty{display:flex;align-items:center;gap:6px;}
+.cqty-btn{width:26px;height:26px;border-radius:50%;border:.5px solid var(--borde);background:var(--crema);font-size:14px;cursor:pointer;color:var(--cacao);display:flex;align-items:center;justify-content:center;}
+.cqty-btn:hover{background:var(--tierra);color:#fff;border-color:var(--tierra);}
+.cqty-num{font-size:14px;color:var(--cacao);min-width:18px;text-align:center;font-weight:500;}
+.cart-item-price{font-family:'Playfair Display',serif;font-size:15px;color:var(--tierra);min-width:80px;text-align:right;}
+.cart-item-del{width:26px;height:26px;border-radius:50%;border:none;background:transparent;color:var(--muted);font-size:14px;cursor:pointer;}
+.cart-item-del:hover{color:var(--tierra);}
+.cart-footer{padding:18px 20px 24px;border-top:.5px solid var(--borde);background:var(--crema);}
+.cart-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;}
+.cart-total-label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.cart-total-price{font-family:'Playfair Display',serif;font-size:26px;color:var(--cacao);}
+.cart-note{width:100%;padding:10px 14px;margin-bottom:14px;background:#fff;border:.5px solid var(--borde);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--texto);outline:none;resize:none;}
+.cart-wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:var(--wa);color:#fff;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:30px;cursor:pointer;font-weight:500;transition:opacity .2s;}
+.cart-wa-btn:hover{opacity:.88;}
+.cart-wa-btn svg{width:20px;height:20px;fill:#fff;flex-shrink:0;}
+
+/* WA FLOTANTE */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:300;display:flex;align-items:center;gap:10px;}
+.wa-float-label{background:var(--cacao);color:var(--luz);padding:8px 14px;border-radius:10px;font-size:12px;box-shadow:0 2px 10px rgba(0,0,0,.2);opacity:0;transform:translateX(10px);transition:opacity .2s,transform .2s;pointer-events:none;}
+.wa-float:hover .wa-float-label{opacity:1;transform:translateX(0);}
+.wa-float-btn{width:56px;height:56px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.45);cursor:pointer;transition:transform .2s;text-decoration:none;}
+.wa-float-btn:hover{transform:scale(1.1);}
+.wa-float-btn svg{width:28px;height:28px;fill:#fff;}
+
+/* ============================================================
+   MEDIA QUERY — pantallas < 768px
+   ============================================================ */
+@media (max-width: 768px) {
+  nav { padding: 12px 16px; }
+  .nav-links { display: none; }
+  .logo-name { font-size: 16px; }
+  .logo-tag { display: none; }
+
+  .hero-wrap { margin: 12px 12px 0; height: 420px; }
+  .hero-content { padding: 28px 24px; }
+  .hero-title { font-size: 36px; }
+  .hero-tagline { font-size: 13px; }
+  .hero-sub { font-size: 12px; max-width: 100%; }
+
+  .trust { margin: 12px 12px; flex-wrap: wrap; }
+  .ti { min-width: 33.3%; border-right: none; border-bottom: .5px solid rgba(255,255,255,.07); }
+
+  .sh { padding: 28px 16px 14px; }
+  .st { font-size: 24px; }
+
+  .cats { grid-template-columns: 1fr; padding: 0 12px 20px; }
+  .cat { height: 240px; }
+
+  .prods { grid-template-columns: 1fr; padding: 0 12px 10px; gap: 14px; }
+  .pcard-img { height: 240px; }
+
+  .adapto { grid-template-columns: 1fr; margin: 0 12px 20px; }
+  .adapto-right { grid-template-columns: 1fr 1fr; }
+
+  .gal-wrap { padding: 0 12px 20px; }
+  .gal-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .g-tall { grid-row: span 1; height: 160px; }
+  .g-med { height: 160px; }
+
+  .creadora-wrap { padding: 0 12px 20px; }
+  .creadora { grid-template-columns: 1fr; }
+  .creadora-foto { height: 320px; }
+  .creadora-foto-ov { background: linear-gradient(to bottom, transparent 70%, var(--cacao) 100%); }
+  .creadora-content { padding: 28px 24px; }
+
+  .arte-grid { grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 20px; }
+
+  .nlwrap { flex-direction: column; padding: 24px 20px; margin: 0 12px 20px; gap: 18px; }
+  .nl-form { flex-direction: column; width: 100%; }
+  .nl-input { width: 100%; }
+
+  footer { padding: 32px 20px 20px; }
+  .ft { grid-template-columns: 1fr; gap: 24px; }
+
+  .cart-panel { width: 100%; }
+}
+/* =========================================
+   🔥 RESPONSIVE FIX – HIFA CREADORA
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+
+  /* estructura general */
+  section {
+    padding: 1.5rem 1rem;
+  }
+
+  .contenido {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  /* HERO */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .hero img {
+    max-width: 85%;
+    margin-top: 1rem;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* PRODUCTOS */
+  .products,
+  .adaptogenos,
+  .extractos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* CARDS */
+  .card {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .card img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  /* BOTONES */
+  button,
+  .btn,
+  .cta {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* FIX GENERAL */
+  * {
+    max-width: 100%;
+  }
+.grid-organitas {
+  grid-template-columns: repeat(1, 1fr);
+}
+}
+/* GRID SOLO ORGONiTAS */
+.grid-organitas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* item individual */
+.organita-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* imagen */
+.organita-item img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Forzar contenedor horizontal */
+.pcard-gallery {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 10px 0;
+}
+
+/* Forzar tamaño de las imágenes chicas */
+.pcard-gallery img {
+  display: inline-block !important;
+  width: 33% !important;  /* Ajustá este valor si las querés más/menos chicas */
+  height: 33% !important;
+  max-width: none !important; /* Evita que reglas viejas las estiren */
+  object-fit: cover !important;
+  border-radius: 8px !important;
+}
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <span>Tiendita de alquimia entre cultivos y arte &nbsp;·&nbsp; Envíos a todo el país &nbsp;·&nbsp; 100% artesanal &nbsp;·&nbsp; Sin conservantes &nbsp;·&nbsp; Apto veganos &nbsp;·&nbsp; Extractos doble concentración &nbsp;·&nbsp; Hongos medicinales &nbsp;&nbsp;</span>
+</div>
+
+<nav>
+  <div class="logo-wrap">
+    <div class="logo-icon">
+      <!-- Se reemplazó el <svg> por tu archivo logo_hifa.svg -->
+      <img src="img/logo_hifa.svg" alt="Hifa Creadora" class="svg-logo">
+    </div>
+    <div>
+      <div class="logo-name">Hifa Creadora</div>
+      <div class="logo-tag">Tiendita de alquimia entre cultivos y arte</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#inicio">Inicio</a>
+    <a href="#productos">Productos</a>
+    <a href="#adaptogenos">Adaptógenos</a>
+    <a href="#creadora">¿Quién soy?</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-cart-btn" onclick="openCart()">
+      🛒<span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</nav>
+
+<section id="inicio">
+<div class="hero-wrap" id="hero">
+  <div class="hero-photo"></div>
+  <canvas id="mc"></canvas>
+  <div class="hero-ov"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="htdot"></span>Alquimia vegetal · Argentina</div>
+    <div class="hero-title">Plantas, hongos<br>y <em>arte</em> que<br>transforma</div>
+    <div class="hero-tagline">Tiendita de alquimia entre cultivos y arte</div>
+    <div class="hero-sub">Extractos artesanales de adaptógenos, tinturas madres y orgonitas elaboradas con intención, amor y conocimiento profundo de la naturaleza.</div>
+    <div class="hero-actions">
+      <a href="#productos"><button class="btn-p">Explorar productos</button></a>
+      <a href="#creadora"><button class="btn-g">Conocer más</button></a>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="trust">
+  <div class="ti"><div class="ti-icon">✦</div><div class="ti-label">Doble<br>concentración</div></div>
+  <div class="ti"><div class="ti-icon">✦</div><div class="ti-label">Envíos<br>todo el país</div></div>
+  <div class="ti"><div class="ti-icon">✦</div><div class="ti-label">100%<br>artesanal</div></div>
+  <div class="ti"><div class="ti-icon">✦</div><div class="ti-label">Apto<br>veganos</div></div>
+  <div class="ti"><div class="ti-icon">✦</div><div class="ti-label">Sin<br>conservantes</div></div>
+</div>
+
+<div class="sh"><div class="st">Explorar por <em>categoría</em></div></div>
+<div class="cats">
+  <div class="cat extractos">
+    <div class="cat-img"></div><div class="cat-ov"></div>
+    <div class="cat-badge">Extractos</div>
+    <div class="cat-body">
+      <span class="cat-glyph">🍄</span>
+      <div class="cat-name">Extractos &<br>Adaptógenos</div>
+      <div class="cat-sub">Reishi · Cordyceps · Melena de León<br>Ashwagandha · Shiitake · Phellinus</div>
+      <a href="#productos"><span class="cat-arrow">Ver productos →</span></a>
+    </div>
+  </div>
+  <div class="cat hongos">
+    <div class="cat-img"></div><div class="cat-ov"></div>
+    <div class="cat-badge">Cultivo</div>
+    <div class="cat-body">
+      <span class="cat-glyph">🌿</span>
+      <div class="cat-name">Hongos &<br>Plantas</div>
+      <div class="cat-sub">Girgolas · Disecados · Tinturas madres<br>Productos naturales artesanales</div>
+      <a href="#cultivo"><span class="cat-arrow">Ver proceso →</span></a>
+    </div>
+  </div>
+  <div class="cat arte">
+    <div class="cat-img"></div><div class="cat-ov"></div>
+    <div class="cat-badge">Arte</div>
+    <div class="cat-body">
+      <span class="cat-glyph">🔮</span>
+      <div class="cat-name">Orgonitas &<br>Arte</div>
+      <div class="cat-sub">Orgonitas · Piezas únicas artesanales</div>
+      <a href="#arte"><span class="cat-arrow">Ver creaciones →</span></a>
+    </div>
+  </div>
+</div>
+
+<section id="productos">
+<div class="sh"><div class="st">🍄 Extractos Adaptógenos <em>Doble Concentración 
+</em></div></div>
+<div class="prods">
+  <!-- REISHI -->
+    <div class="pcard" data-nombre="Reishi" data-precio="20000">
+    <img src="img/reishi.webp">
+      <div class="pcard-body">
+        <div class="pcard-name">Reishi</div>
+        <div class="pcard-sci">Ganoderma lucidum</div>
+        <div class="pcard-variant">
+      <label for="variant-reishi">Presentación:</label>
+      <select id="variant-reishi" class="variant-select" onchange="updateVariant(this)">
+        <option value="30ml" data-precio="20000" selected>30 ml - $20.000</option>
+        <option value="60ml" data-precio="25000">60 ml - $25.000</option>
+      </select>
+    </div>
+        <div class="pcard-price">$20.000</div>
+        <span class="pcard-tag">estrés, sistema inmune y oncología integrativa</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        
+        </div>
+      </div>
+    </div>
+    <!-- MELENA DE LEON -->
+    <div class="pcard" data-nombre="Melena de León" data-precio="15000">
+     <img src="img/melena.webp">
+      <div class="pcard-body">
+        <div class="pcard-name">Melena de León</div>
+        <div class="pcard-sci">Hericium erinaceus</div>
+          <div class="pcard-variant">
+      <label for="variant-melena-leon">Presentación:</label>
+      <select id="variant-melena-leon" class="variant-select" onchange="updateVariant(this)">
+        <option value="30ml" data-precio="20000" selected>30 ml - $20.000</option>
+        <option value="60ml" data-precio="25000">60 ml - $25.000</option>
+      </select>
+    </div>
+        <div class="pcard-price">$20.000</div>
+        <span class="pcard-tag">neurociencia, neuroplasticidad, autismo y salud mental</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        </div>
+      </div>
+    </div>
+    <!-- CORDYCEPS -->
+    <div class="pcard" data-nombre="Cordyceps" data-precio="15000">
+     <img src="img/cordyceps.webp">
+      <div class="pcard-body">
+        <div class="pcard-name">Cordyceps</div>
+        <div class="pcard-sci">Cordyceps militaris</div>
+       <div class="pcard-variant">
+      <label for="variant-cordyceps">Presentación:</label>
+      <select id="variant-cordyceps" class="variant-select" onchange="updateVariant(this)">
+        <option value="30ml" data-precio="20000" selected>30 ml - $20.000</option>
+        <option value="60ml" data-precio="25000">60 ml - $25.000</option>
+      </select>
+    </div>
+        <div class="pcard-price">$20.000</div>
+        <span class="pcard-tag">energía celular, ATP y rendimiento físico</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        </div>
+      </div>
+    </div>
+    <!-- ASHWAGANDHA -->
+    <div class="pcard" data-nombre="Ashwagandha" data-precio="20000">
+        <img src="img/ashwaganda.webp">
+      <div class="pcard-body">
+        <div class="pcard-name">Ashwagandha</div>
+        <div class="pcard-sci">Withania somnifera</div>
+       <div class="pcard-variant">
+      <label for="variant-Ashwagandha">Presentación:</label>
+      <select id="variant-Ashwagandha" class="variant-select" onchange="updateVariant(this)">
+        <option value="30ml" data-precio="20000" selected>30 ml - $20.000</option>
+        <option value="60ml" data-precio="25000">60 ml - $25.000</option>
+      </select>
+    </div>
+        <div class="pcard-price">$20.000</div>
+        <span class="pcard-tag">Antistrés</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        </div>
+      </div>
+    </div>
+    <!-- SHIITAKE -->
+    <div class="pcard" data-nombre="Shiitake" data-precio="15000">
+      <img src="img/shitake.webp">
+      <div class="pcard-body">
+        <div class="pcard-name">Shiitake</div>
+        <div class="pcard-sci">Lentinula edodes</div>
+        <div class="pcard-variant">
+      <label for="variant-Shiitake">Presentación:</label>
+      <select id="variant-Shiitake" class="variant-select" onchange="updateVariant(this)">
+        <option value="30ml" data-precio="20000" selected>30 ml - $20.000</option>
+        <option value="60ml" data-precio="25000">60 ml - $25.000</option>
+      </select>
+    </div>
+        <div class="pcard-price">$20.000</div>
+        <span class="pcard-tag">nutrición funcional y sistema inmune</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        </div>
+      </div>
+    </div>
+    <!-- MAITAKE -->
+    <div class="pcard" data-nombre="Maitake" data-precio="20000">
+      <img src="img/maitake.webp">
+      <div class="pcard-body">
+        <div class="pcard-name">Maitake</div>
+        <div class="pcard-sci">Grifola frondosa</div>
+        <div class="pcard-variant">
+      <label for="variant-Maitake">Presentación:</label>
+      <select id="variant-Maitake" class="variant-select" onchange="updateVariant(this)">
+        <option value="30ml" data-precio="20000" selected>30 ml - $20.000</option>
+        <option value="60ml" data-precio="25000">60 ml - $25.000</option>
+      </select>
+    </div>
+        <div class="pcard-price">$20.000</div>
+        <span class="pcard-tag">metabolismo, glucosa y salud cardiovascular</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        </div>
+      </div>
+    </div>
+    <!-- COLA DE PAVO -->
+    <div class="pcard" data-nombre="Cola de Pavo" data-precio="18000">
+       <img src="img/cola-de-pavo.webp">
+      <div class="pcard-body">
+        <div class="pcard-name">Cola de Pavo</div>
+        <div class="pcard-sci">Trametes versicolor</div>
+         <div class="pcard-variant">
+      <label for="variant-cola-de-pavo">Presentación:</label>
+      <select id="variant-cola-de-pavo" class="variant-select" onchange="updateVariant(this)">
+        <option value="30ml" data-precio="20000" selected>30 ml - $20.000</option>
+        <option value="60ml" data-precio="25000">60 ml - $25.000</option>
+      </select>
+    </div>
+        <div class="pcard-price">$20.000</div>
+        <span class="pcard-tag">microbiota e inmunidad.</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        </div>
+      </div>
+    </div>
+    <!-- TREMELLA -->
+<div class="pcard" data-nombre="Tremella" data-precio="12000" data-tamano="30ml">
+   <img src="img/chaga.webp" alt="Tremella">
+  <div class="pcard-body">
+    <div class="pcard-name">Tremella</div>
+    <div class="pcard-sci">Tremella fuciformis</div>
+    
+    <!-- Selector de variantes -->
+      <div class="pcard-variant">
+      <label for="variant-tremella">Presentación:</label>
+      <select id="variant-tremella" class="variant-select" onchange="updateVariant(this)">
+        <option value="30ml" data-precio="20000" selected>30 ml - $20.000</option>
+        <option value="60ml" data-precio="25000">60 ml - $25.000</option>
+      </select>
+    </div>
+
+    <!-- El precio se actualiza dinámicamente -->
+    <div class="pcard-price">$20.000</div>
+    <span class="pcard-tag">hidratación celular y salud de la piel</span>
+    
+    <div class="pcard-qty">
+      <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+      <span class="qty-num">0</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+      <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+    </div>
+  </div>
+</div>
+    
+    <!-- MIX ADAPTOGENOS -->
+    <div class="pcard" data-nombre="Triada" data-precio="25000">
+      <img src="img/trieja.webp">
+      <div class="pcard-body">
+        <div class="pcard-name">Triada</div>
+        <div class="pcard-sci">Cordyceps-melena-reishi</div>
+        <div class="pcard-price">$25.000</div>
+        <span class="pcard-tag">Bienestar</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        </div>
+      </div>
+    </div></div>
+</section>
+<section>
+
+  <div class="sh">
+    <div class="st">Aceites esenciales <em> % 100 puros</em></div>
+  </div>
+
+  <div class="prods">
+
+    <!-- PIMIENTA ROSA -->
+    <div class="pcard" data-nombre="Pimienta Rosa" data-precio="22000">
+      <div class="pcard-img">
+        <img src="img/pimienta-rosa.webp">
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-name">Pimienta Rosa</div>
+        <div class="pcard-sci">Aceite esencial</div>
+        <div class="pcard-price">$22.000</div>
+        <span class="pcard-tag">Extracto</span>
+
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">-</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EUCALIPTO -->
+    <div class="pcard" data-nombre="Eucalipto" data-precio="20000">
+      <div class="pcard-img">
+        <img src="img/eucalipto.webp">
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-name">Eucalipto</div>
+        <div class="pcard-sci">Aceite esencial</div>
+        <div class="pcard-price">$20.000</div>
+        <span class="pcard-tag">Extracto</span>
+
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">-</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar</button>
+        </div>
+      </div>
+    </div>
+     <!-- BURRITO-->
+    <div class="pcard" data-nombre="Burrito" data-precio="25000">
+      <div class="pcard-img">
+        <img src="img/burrito.webp">
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-name">Burrito</div>
+        <div class="pcard-sci">Aceite esencial</div>
+        <div class="pcard-price">$25.000</div>
+        <span class="pcard-tag">Extracto</span>
+
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">-</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAVANDA -->
+    <div class="pcard" data-nombre="Lavanda" data-precio="23000">
+      <div class="pcard-img">
+        <img src="img/lavanda.webp">
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-name">Lavanda Montblanc</div>
+        <div class="pcard-sci">Aceite esencial</div>
+        <div class="pcard-price">$23.000</div>
+        <span class="pcard-tag">Extracto</span>
+
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">-</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PEPERINA -->
+    <div class="pcard" data-nombre="Peperina" data-precio="21000">
+      <div class="pcard-img">
+        <img src="img/peperina.webp">
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-name">Peperina</div>
+        <div class="pcard-sci">Aceite esencial</div>
+        <div class="pcard-price">$21.000</div>
+        <span class="pcard-tag">Extracto</span>
+
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">-</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar</button>
+        </div>
+      </div>
+    </div>
+
+  
+    <!-- Serum -->
+   </div>
+  <div class="sh">
+    <div class="st">🍄Linea <em> Cosméticos🍄</em></div>
+  </div>
+
+   <!-- Serum tremella -->
+<div class="pcard" data-nombre="Serum Tremella" data-precio="20000">
+  
+  <!-- GALERÍA HORIZONTAL -->
+  <div class="pcard-gallery">
+    <img src="img/serum_tremella1.webp" alt="tremella vista 1">
+    <img src="img/tremella1.webp" alt="tremella vista 2">
+    <img src="img/Serum_tremella.webp" alt="tremella vista 3">
+  </div>
+
+  <div class="pcard-body">
+    <div class="pcard-name">Serum Tremella</div>
+    <div class="pcard-sci">Rutina skincare</div>
+    <div class="pcard-price">$20.000</div>
+    <span class="pcard-tag">Cosmetico</span>
+
+    <div class="pcard-qty">
+      <button class="qty-btn" onclick="changeQty(this,-1)">-</button>
+      <span class="qty-num">0</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+      <button class="add-cart-btn" onclick="addToCart(this)">Agregar</button>
+    </div>
+  </div>
+</div>
+
+  <div class="sh">
+    <div class="st">Cacao <em> %100 puro</em></div>
+  </div>
+   <!-- CACAO -->
+<div class="pcard" data-nombre="Cacao" data-precio="15000">
+  
+  <!-- GALERÍA HORIZONTAL -->
+  <div class="pcard-gallery">
+    <img src="img/cacao2.webp" alt="Cacao vista 1">
+    <img src="img/cacao 4.webp" alt="Cacao vista 2">
+    <img src="img/cacao3.webp" alt="Cacao vista 3">
+  </div>
+
+  <div class="pcard-body">
+    <div class="pcard-name">Cacao</div>
+    <div class="pcard-sci">orgánico</div>
+    <div class="pcard-price">$15.000</div>
+    <span class="pcard-tag">en barra</span>
+
+    <div class="pcard-qty">
+      <button class="qty-btn" onclick="changeQty(this,-1)">-</button>
+      <span class="qty-num">0</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+      <button class="add-cart-btn" onclick="addToCart(this)">Agregar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hongos Gurmet -->
+   </div>
+  <div class="sh">
+    <div class="st">Hongos <em> Gourmet</em></div>
+  </div>
+
+   <!-- Sales -->
+<div class="pcard" data-nombre="Sales de Hongos" data-precio="20000">
+  
+  <!-- GALERÍA HORIZONTAL -->
+  <div class="pcard-gallery">
+    <img src="img/sal_girgolas.webp" alt="sales vista 1">
+    <img src="img/sal_hongos.webp" alt="sales vista 2">
+    <img src="img/sal_melena.webp" alt="sales vista 3">
+  </div>
+
+  <div class="pcard-body">
+    <div class="pcard-name">Sales de Hongos</div>
+      <div class="pcard-variant">
+      <label for="variant-Shiitake">Presentación:</label>
+      <select id="variant-Shiitake" class="variant-select" onchange="updateVariant(this)">
+        <option value="100grm" data-precio="4000" selected>Girgolas - $4.000</option>
+        <option value="100grm" data-precio="5000">Melena de Leon - $5.000</option>
+        <option value="100grm" data-precio="7000">Mix monte y hongos - $7.000</option>
+      </select>
+    </div>
+        <div class="pcard-price">$4.000</div>
+        <span class="pcard-tag">Girgolas, Melena de Leon, mix del monte y hongos</span>
+        <div class="pcard-qty">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <span class="qty-num">0</span>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          <button class="add-cart-btn" onclick="addToCart(this)">Agregar al pedido</button>
+        </div>
+      </div>
+    </div>
+
+   <!-- Hongones -->
+<div class="pcard" data-nombre="Hongos Desidratados">
+  
+  <!-- GALERÍA HORIZONTAL -->
+  <div class="pcard-gallery">
+    <img src="img/hongos_desidratados1.webp" alt="Desidratados vista 1">
+    <img src="img/hongos_desidratados.webp" alt="Desidratados vista 2">
+    <img src="img/hongos_desidratados2.webp" alt="Desidratados vista 3">
+  </div>
+
+  <div class="pcard-body">
+    <div class="pcard-name">Hongos Desidratados</div>
+    <div class="pcard-sci">Opciones varias</div>
+    <div class="pcard-price">consultar stock</div>
+    <span class="pcard-tag">Melena de Leon, Girgolas, Hongos de Pino, Shitake</span>
+
+    
+</div>
+      <!-- Semilla miceliada -->
+   </div>
+  <div class="sh">
+    <div class="st">🍄Kit Cultivo <em> Hogareño🍄</em></div>
+  </div>
+
+   <!-- SEMILLA -->
+<div class="pcard" data-nombre="Semilla Miceliada" data-precio="22000">
+  
+  <!-- GALERÍA HORIZONTAL -->
+  <div class="pcard-gallery">
+    <img src="img/cultivo-hogareño3.webp" alt="Cacao vista 1">
+    <img src="img/semilla_miceliada.webp" alt="Cacao vista 2">
+    <img src="img/cultivo-hogareño2.webp" alt="Cacao vista 3">
+  </div>
+
+  <div class="pcard-body">
+    <div class="pcard-name">Semilla Miceleada</div>
+    <div class="pcard-sci">Artesanal</div>
+    <div class="pcard-price">$22.000</div>
+    <span class="pcard-tag">Bloque de fructificación</span>
+
+    <div class="pcard-qty">
+      <button class="qty-btn" onclick="changeQty(this,-1)">-</button>
+      <span class="qty-num">0</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+      <button class="add-cart-btn" onclick="addToCart(this)">Agregar</button>
+    </div>
+  </div>
+</div>
+
+
+</section>
+
+<section id="adaptogenos">
+<div class="sh"><div class="st">¿Qué es un <em>adaptógeno?</em></div></div>
+<div class="adapto">
+  <div class="adapto-left">
+    <div class="adapto-label">Educación · Biología aplicada</div>
+    <div class="adapto-title">Sustancias naturales que <em>equilibran</em> tu organismo</div>
+    <div class="adapto-text">Un adaptógeno es capaz de modular cualquier estresor —ya sea químico, físico o psicológico— y adaptarse según la situación de quien lo consume, para generar un equilibrio.<br><br>En casos de un sistema hiperactivo, se encarga de disminuirlo. En casos de poca actividad, lo refuerza y estimula.</div>
+    <div class="adapto-pills">
+      <span class="apill">Mejoran el rendimiento</span>
+      <span class="apill">Regulan el sistema nervioso</span>
+      <span class="apill">Fortalecen la inmunidad</span>
+      <span class="apill">Medicina natural</span>
+    </div>
+  </div>
+  <div class="adapto-right">
+<img src="img/ashwaganda.webp" alt="Adaptógeno 1">
+<img src="img/reishi.webp" alt="Adaptógeno 3">
+<img src="img/melena.webp" alt="Adaptógeno 2">
+    <div class="adapto-cta"><div class="adapto-cta-text">Reishi · Cordyceps<br>Melena de León<br>Ashwagandha<br>Shiitake · Phellinus<br>Cola de Pavo · Chaga</div></div>
+  </div>
+</div>
+</section>
+ <!-- PROCESO Y CULTIVO-->
+<section id="cultivo">
+<div class="sh">
+  <div class="st">Proceso & <em>cultivo</em></div>
+  <a href="https://www.instagram.com/hifa.creadora" target="_blank" class="sl-link">Ver Instagram →</a>
+</div>
+<div class="gal-wrap">
+  <div class="gal-grid">
+<div class="gi g-med">
+  <img src="img/cultivo1.webp">
+</div><div class="gi g-med">
+  <img src="img/cultivo.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo2.webp">
+</div>
+<div class="gi g-tall">
+  <img src="img/cultivo3.webp">
+</div>
+<div class="gi g-tall">
+  <img src="img/cultivo4.webp">
+</div>
+<div class="gi g-tall">
+  <img src="img/cultivo5.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo6.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo7.webp">
+</div>
+<div class="gi g-tall">
+  <img src="img/cultivo8.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo9.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo10.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo11.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo12.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo13.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo14.webp">
+</div><div class="gi g-med">
+  <img src="img/cultivo15.webp">
+</div><div class="gi g-tall">
+  <img src="img/cultivo16.webp">
+</div><div class="gi g-med">
+  <img src="img/cultivo17.webp">
+</div><div class="gi g-med">
+  <img src="img/cultivo18.webp">
+</div><div class="gi g-tall">
+  <img src="img/cultivo19.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo20.webp">
+</div>
+<div class="gi g-med">
+  <img src="img/cultivo21.webp">
+</div>
+  </div>
+</div>
+</section>
+
+<section id="creadora">
+<div class="sh"><div class="st">La creadora <em>detrás</em></div></div>
+<div class="creadora-wrap">
+  <div class="creadora">
+    <div class="creadora-foto">
+<img src="img/angie-fondo.webp">
+      <div class="creadora-foto-ov"></div>
+    </div>
+    <div class="creadora-content">
+      <div class="mb"></div>
+      <div class="m-label">Sobre Hifa Creadora</div>
+      <div class="m-quote">Arte que transforma, alquimias que ofrecen una conexión que se hace sentir.</div>
+      <div class="m-bio">Soy una creadora apasionada por el mundo de los hongos medicinales, las plantas y el arte. Cada producto es elaborado con intención, amor y conocimiento profundo de la naturaleza.<br><br>Desde los extractos hasta las orgonitas, todo nace de un proceso consciente, artesanal y lleno de intención. Te invito a conocer este universo de alquimia vegetal.</div>
+      <span class="m-link">→</span>
+    </div>
+  </div>
+</div>
+</section>
+ <!-- ORGANITAS Y ARTE-->
+<section id="arte">
+<div class="sh"><div class="st">Orgonitas & <em>arte</em></div></div>
+<div class="grid-organitas">
+
+  <div class="organita-item">
+    <img src="img/organita1.webp">
+  </div>
+<div class="organita-item">
+    <img src="img/organita2.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organita3.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organita4.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organita5.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organitas10.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organita7.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organita8.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organitas17.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organitas11.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organitas12.webp">
+  </div>
+  <div class="organita-item">
+    <img src="img/organitas14.webp">
+  </div>
+</section>
+
+<div class="nlwrap">
+  <div>
+    <div class="nl-title">Sumate al círculo <em>Hifa</em></div>
+    <div class="nl-sub">Rituales, guías de uso y novedades antes que nadie. Sin spam, solo magia vegetal 🌿</div>
+  </div>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="tu@email.com">
+    <button class="nl-btn">Suscribirme</button>
+  </div>
+</div>
+
+<section id="contacto">
+<footer>
+  <div class="ft">
+    <div>
+      <div class="ft-logo">Hifa Creadora</div>
+      <div class="ft-tagline">Tiendita de alquimia entre cultivos y arte</div>
+    </div>
+    <div>
+      <div class="ft-head">Navegación</div>
+      <div class="ft-links">
+        <a href="#productos">Extractos Adaptógenos</a>
+        <a href="#cultivo">Hongos & Plantas</a>
+        <a href="#arte">Orgonitas & Arte</a>
+        <a href="#creadora">¿Quién soy?</a>
+        <a href="#adaptogenos">Adaptógenos</a>
+      </div>
+    </div>
+    <div>
+      <div class="ft-head">Contacto</div>
+      <div class="ft-contact">
+        <span>📍 Valle de Punilla, Córdoba, Argentina</span>
+        <span>🚚 Envíos a todo el país</span>
+        <a href="https://wa.me/5493513230448" target="_blank">📱 +54 9 351 3230448</a>
+        <a href="https://instagram.com/hifa.creadora" target="_blank">📸 @hifa.creadora</a>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2026 Hifa Creadora · Todos los derechos reservados</span>
+    <span class="ft-ig">@hifa.creadora</span>
+  </div>
+</footer>
+</section>
+
+<!-- WA FLOTANTE -->
+<div class="wa-float">
+  <div class="wa-float-label">¡Hacé tu pedido!</div>
+  <a href="https://wa.me/5493513230448?text=Hola!%20Quiero%20hacer%20un%20pedido" target="_blank" class="wa-float-btn">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<!-- CARRITO PANEL -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <div class="cart-title">Tu pedido 🧺</div>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">Todavía no agregaste productos.<br>¡Explorá los extractos!</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span class="cart-total-label">Total estimado</span>
+      <span class="cart-total-price" id="cartTotal">$0</span>
+    </div>
+    <textarea class="cart-note" id="cartNote" rows="2" placeholder="Nota opcional (dirección, consultas...)"></textarea>
+    <button class="cart-wa-btn" onclick="sendToWA()">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enviar pedido por WhatsApp
+    </button>
+  </div>
+</div>
+
+<script>
+  function updateVariant(selectElement) {
+    const pcard = selectElement.closest('.pcard');
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    
+    const nuevoPrecio = selectedOption.getAttribute('data-precio');
+    const nuevoTamano = selectElement.value;
+
+    pcard.setAttribute('data-precio', nuevoPrecio);
+    pcard.setAttribute('data-tamano', nuevoTamano);
+
+    const priceDisplay = pcard.querySelector('.pcard-price');
+    priceDisplay.textContent = `$${parseInt(nuevoPrecio).toLocaleString('es-AR')}`;
+  }
+
+  const WA_NUM = '5493513230448';
+  let cart = {};
+
+  function changeQty(btn, delta) {
+    const el = btn.parentElement.querySelector('.qty-num');
+    let v = parseInt(el.textContent) + delta;
+    if(v < 0) v = 0;
+    el.textContent = v;
+  }
+
+  function addToCart(btn) {
+    const card = btn.closest('.pcard');
+    const nombreBase = card.dataset.nombre;
+    const precio = parseInt(card.dataset.precio);
+    const tamano = card.dataset.tamano || '30ml';
+    const qty = parseInt(card.querySelector('.qty-num').textContent);
+
+    if(qty === 0) return;
+
+    const itemKey = `${nombreBase} (${tamano})`;
+
+    if (cart[itemKey]) {
+      cart[itemKey].qty += qty;
+    } else {
+      cart[itemKey] = {
+        key: itemKey, // <-- Guardamos la clave única aquí
+        nombre: nombreBase,
+        tamano: tamano,
+        precio: precio,
+        qty: qty
+      };
+    }
+
+    card.querySelector('.qty-num').textContent = '0';
+    btn.textContent = '✓ Agregado';
+    btn.classList.add('added');
+    setTimeout(() => {
+      btn.textContent = 'Agregar al pedido';
+      btn.classList.remove('added');
+    }, 1500);
+
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    const items = Object.values(cart);
+    const total = items.reduce((s,i)=>s+i.precio*i.qty,0);
+    const count = items.reduce((s,i)=>s+i.qty,0);
+    const badge = document.getElementById('cartBadge');
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'flex' : 'none';
+    document.getElementById('cartTotal').textContent = '$'+total.toLocaleString('es-AR');
+    
+    const container = document.getElementById('cartItems');
+    container.querySelectorAll('.cart-item').forEach(e=>e.remove());
+    document.getElementById('cartEmpty').style.display = items.length ? 'none' : 'block';
+    
+    items.forEach(item=>{
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div class="cart-item-name">
+          <strong>${item.nombre}</strong> <small>(${item.tamano})</small>
+          <span>$${item.precio.toLocaleString('es-AR')} c/u</span>
+        </div>
+        <div class="cart-item-qty">
+          <button class="cqty-btn" onclick="updateItemQty('${item.key}', -1)">−</button>
+          <span class="cqty-num">${item.qty}</span>
+          <button class="cqty-btn" onclick="updateItemQty('${item.key}', 1)">+</button>
+        </div>
+        <div class="cart-item-price">$${(item.precio*item.qty).toLocaleString('es-AR')}</div>
+        <button class="cart-item-del" onclick="removeItem('${item.key}')">✕</button>`;
+      container.appendChild(div);
+    });
+  }
+
+  // Ahora recibe la clave 'key' (ej: "Extracto Reishi (30ml)")
+  function updateItemQty(key, delta) {
+    if(!cart[key]) return;
+    cart[key].qty += delta;
+    if(cart[key].qty <= 0) delete cart[key];
+    updateCartUI();
+  }
+
+  // Elimina usando la clave 'key'
+  function removeItem(key) { 
+    delete cart[key]; 
+    updateCartUI(); 
+  }
+
+  function openCart()  { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartPanel').classList.add('open'); }
+  function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartPanel').classList.remove('open'); }
+
+  function sendToWA() {
+    const items = Object.values(cart);
+    if(!items.length) { alert('¡Agregá al menos un producto!'); return; }
+    const nota = document.getElementById('cartNote').value.trim();
+    const total = items.reduce((s,i)=>s+i.precio*i.qty,0);
+    let msg = '¡Hola Hifa Creadora! 🍄 Quiero hacer el siguiente pedido:%0A%0A';
+    items.forEach(i=>{ msg += `▪ ${i.nombre} (${i.tamano}) x${i.qty} — $${(i.precio*i.qty).toLocaleString('es-AR')}%0A`; });
+    msg += `%0A*Total estimado: $${total.toLocaleString('es-AR')}*`;
+    if(nota) msg += `%0A%0A📝 Nota: ${encodeURIComponent(nota)}`;
+    window.open(`https://wa.me/${WA_NUM}?text=${msg}`,'_blank');
+  }
+
+
+
+// HONGOS ANIMADOS
+const heroEl=document.getElementById('hero');
+const canvas=document.getElementById('mc');
+const ctx=canvas.getContext('2d');
+let W,H,mouse={x:-999,y:-999};
+function resize(){W=canvas.width=heroEl.offsetWidth;H=canvas.height=heroEl.offsetHeight;}
+resize();window.addEventListener('resize',resize);
+heroEl.addEventListener('mousemove',e=>{const r=heroEl.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
+heroEl.addEventListener('mouseleave',()=>{mouse.x=-999;mouse.y=-999;});
+const CAPS=['#c8441a','#a83210','#8ab840','#4a6e3a','#5c1a0a','#b06030','#d4724a','#3a5a28'];
+const STEMS=['#e8d8b8','#ddd0a8','#d4c498','#e0d4b0'];
+function rnd(a,b){return a+Math.random()*(b-a);}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function dA(cw,ch,sh,sw,cc,sc){ctx.fillStyle=sc;ctx.beginPath();ctx.roundRect(-sw/2,-sh,sw,sh,[sw*.35,sw*.35,sw*.5,sw*.5]);ctx.fill();ctx.fillStyle='rgba(235,220,190,0.25)';ctx.beginPath();ctx.ellipse(0,-sh,cw*.5,ch*.15,0,Math.PI,0);ctx.fill();ctx.fillStyle=cc;ctx.beginPath();ctx.moveTo(-cw/2,-sh);ctx.bezierCurveTo(-cw*.58,-sh-ch*.1,-cw*.52,-sh-ch,0,-sh-ch);ctx.bezierCurveTo(cw*.52,-sh-ch,cw*.58,-sh-ch*.1,cw/2,-sh);ctx.closePath();ctx.fill();ctx.fillStyle='rgba(255,248,230,0.4)';[[0,-sh-ch*.72,cw*.048],[cw*.24,-sh-ch*.52,cw*.032],[-cw*.22,-sh-ch*.56,cw*.028],[cw*.1,-sh-ch*.38,cw*.022],[-cw*.32,-sh-ch*.4,cw*.02]].forEach(([dx,dy,r])=>{ctx.beginPath();ctx.arc(dx,dy,r,0,Math.PI*2);ctx.fill();});}
+function dR(cw,ch,sh,sw,cc,sc){ctx.fillStyle=sc;ctx.beginPath();ctx.roundRect(-sw*.4,-sh,sw*.8,sh*.75,4);ctx.fill();ctx.fillStyle=cc;ctx.beginPath();ctx.moveTo(-sw*.4,-sh*.75);ctx.bezierCurveTo(-cw*.6,-sh*.6,-cw*.7,-sh-ch*.55,-cw*.42,-sh-ch*.75);ctx.bezierCurveTo(-cw*.15,-sh-ch,cw*.15,-sh-ch,cw*.42,-sh-ch*.75);ctx.bezierCurveTo(cw*.7,-sh-ch*.55,cw*.6,-sh*.6,sw*.4,-sh*.75);ctx.closePath();ctx.fill();for(let i=0;i<3;i++){ctx.strokeStyle=`rgba(255,248,230,${.12+i*.04})`;ctx.lineWidth=cw*.02;ctx.beginPath();ctx.moveTo(-cw*(.58-i*.12),-sh-ch*(.28+i*.12));ctx.bezierCurveTo(-cw*(.28-i*.06),-sh-ch*(.72+i*.07),cw*(.28-i*.06),-sh-ch*(.72+i*.07),cw*(.58-i*.12),-sh-ch*(.28+i*.12));ctx.stroke();}}
+function dC(cw,ch,sh,sw,cc,sc){ctx.fillStyle=sc;ctx.beginPath();ctx.roundRect(-sw/2,-sh,sw,sh,sw*.5);ctx.fill();for(let i=4;i>=0;i--){const py=-sh-(ch/5)*i-ch*.08,px=Math.sin(i*1.1)*cw*.22,rx=cw*(.48-i*.06),ry=rx*.52;ctx.fillStyle=cc;ctx.beginPath();ctx.ellipse(px,py,rx,ry,0,0,Math.PI*2);ctx.fill();}ctx.fillStyle=cc;ctx.beginPath();ctx.ellipse(0,-sh-ch*.88,cw*.16,cw*.38,0,0,Math.PI*2);ctx.fill();}
+function dL(cw,ch,sh,sw,cc,sc){ctx.fillStyle=sc;ctx.beginPath();ctx.roundRect(-sw/2,-sh,sw,sh*.45,[sw*.4,sw*.4,sw*.5,sw*.5]);ctx.fill();ctx.fillStyle=cc;ctx.beginPath();ctx.ellipse(0,-sh-ch*.45,cw*.36,ch*.36,0,0,Math.PI*2);ctx.fill();ctx.lineCap='round';for(let i=0;i<20;i++){const a=(i/20)*Math.PI*2,bx=Math.cos(a)*cw*.28,by=-sh-ch*.45+Math.sin(a)*ch*.26,len=cw*(.28+Math.random()*.26),ex=bx+Math.cos(a)*len,ey=by+Math.sin(a)*len+ch*.1;ctx.beginPath();ctx.lineWidth=cw*.042+Math.random()*cw*.028;ctx.strokeStyle=cc;ctx.moveTo(bx,by);ctx.quadraticCurveTo(bx+(ex-bx)*.5+Math.cos(a+1.2)*cw*.12,by+(ey-by)*.5,ex,ey);ctx.stroke();}}
+function dS(cw,ch,sh,sw,cc,sc){ctx.fillStyle=sc;ctx.beginPath();ctx.roundRect(-sw/2,-sh,sw,sh,[sw*.3,sw*.3,sw*.5,sw*.5]);ctx.fill();ctx.fillStyle=cc;ctx.beginPath();ctx.moveTo(-cw/2,-sh);for(let i=0;i<=7;i++){ctx.lineTo(-cw/2+(cw/7)*i,-sh+ch*.09+(i%2===0?ch*.07:-ch*.04));}ctx.lineTo(cw/2,-sh);ctx.bezierCurveTo(cw*.62,-sh-ch*.28,cw*.46,-sh-ch,0,-sh-ch);ctx.bezierCurveTo(-cw*.46,-sh-ch,-cw*.62,-sh-ch*.28,-cw/2,-sh);ctx.closePath();ctx.fill();}
+const TYPES=[dA,dR,dC,dL,dS];
+function mkS(fresh){const sc=rnd(.5,1.1);return{x:rnd(20,W-20),y:fresh?rnd(-H,0):rnd(-120,-10),vy:rnd(.4,1.0),vx:rnd(-.08,.08),wobble:rnd(0,Math.PI*2),wobbleSpeed:rnd(.01,.02),angle:rnd(-.25,.25),rotSpeed:rnd(-.003,.003),cw:50*sc,ch:33*sc,sh:35*sc,sw:10*sc,cap:pick(CAPS),stem:pick(STEMS),opacity:rnd(.5,.9),drawFn:pick(TYPES),repelX:0,repelY:0};}
+const shrooms=[];for(let i=0;i<18;i++)shrooms.push(mkS(true));
+let frame=0;
+function loop(){
+  ctx.clearRect(0,0,W,H);
+  if(frame%60===0&&shrooms.length<28)shrooms.push(mkS(false));
+  for(let i=shrooms.length-1;i>=0;i--){
+    const s=shrooms[i];
+    const dx=s.x-mouse.x,dy=s.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy),R=100;
+    if(d<R&&d>.1){const f=(R-d)/R;s.repelX+=(dx/d)*f*4;s.repelY+=(dy/d)*f*4;}
+    s.repelX*=.88;s.repelY*=.88;
+    s.x+=s.vx+s.repelX;s.y+=s.vy+s.repelY;
+    s.wobble+=s.wobbleSpeed;s.angle+=s.rotSpeed+Math.sin(s.wobble)*.003;
+    if(s.x<-80)s.x=W+60;if(s.x>W+80)s.x=-60;
+    if(s.y>H+80){shrooms.splice(i,1);shrooms.unshift(mkS(false));continue;}
+    ctx.save();ctx.globalAlpha=s.opacity;ctx.translate(s.x,s.y);ctx.rotate(s.angle);s.drawFn(s.cw,s.ch,s.sh,s.sw,s.cap,s.stem);ctx.restore();
+  }
+  frame++;requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
+</html>
